@@ -30,9 +30,9 @@ fetch("https://dummyjson.com/products")
               </div>
               </div>`;
     });
-    cartPage();
     increment();
     decrement();
+    cartPage();
     cartPageIncrement();
     cartPageDecrement();
   });
@@ -57,6 +57,7 @@ function increment() {
       // console.log(productsCart);
       updateCart(itemData.id);
       cartPageLive();
+      cartPage()
       localStorage.setItem("data", JSON.stringify(productsCart));
     });
     updateCart(e.dataset.id);
@@ -65,6 +66,7 @@ function increment() {
 
 function decrement() {
   const rmCounts = document.querySelectorAll(".rmCount");
+  const cartproduct = document.querySelectorAll(".product-inCart");
   rmCounts.forEach((e) => {
     e.addEventListener("click", () => {
       const search = productsCart.find((x) => x.id == e.dataset.id);
@@ -73,6 +75,7 @@ function decrement() {
           search.quantity -= 1;
         } else {
           productsCart.pop(search);
+          cartproduct[index].remove();
         }
       }
       updateCart(e.dataset.id);
@@ -108,16 +111,18 @@ function DisplayCartPage() {
   closeBtn.addEventListener("click", () => {
     cartPage.style.transform = "translateX(100%)";
   });
+  totalBill()
 }
 DisplayCartPage();
 function cartPage() {
   let cartPageBodyHtml = document.querySelector(".cart-page-body");
   // console.log(productsCart)
+  cartPageBodyHtml.innerHTML = ''
   productsCart.forEach((x) => {
     const { id, title, price, image, quantity } = x;
     cartPageBodyHtml.innerHTML += `
         <div
-          class="col cart-item d-flex gap-4 w-75 border align-items-center p-4 shadow product-inCart" data-id=${id}
+          class="col cart-item d-flex gap-4 border align-items-center p-4 shadow product-inCart" data-id=${id}
         >
         <div class="cart-item-img col-4" style="width: 260px">
             <img
@@ -161,6 +166,7 @@ function cartPageLive() {
       t.innerHTML = (search.quantity * search.price).toFixed(2);
     }
   });
+  totalBill()
 }
 
 function cartPageIncrement() {
@@ -171,12 +177,11 @@ function cartPageIncrement() {
       if (search) {
         search.quantity += 1;
       }
-      console.log(productsCart);
+      // console.log(productsCart);
       updateCart(e.dataset.id);
       cartPageLive();
       localStorage.setItem("data", JSON.stringify(productsCart));
     });
-    updateCart(e.dataset.id);
   });
 }
 function cartPageDecrement() {
@@ -199,4 +204,15 @@ function cartPageDecrement() {
       localStorage.setItem("data", JSON.stringify(productsCart));
     });
   });
+}
+
+function totalBill(){
+  const totalBill = document.querySelector('.total-bill')
+  if(productsCart.length >0){
+    const totalPrice=  productsCart.map((x)=>x.price).reduce((a,c)=>+a+ +c,0)
+    const totalquantity=  productsCart.map((x)=>x.quantity).reduce((a,c)=>+a+ +c,0)
+
+    totalBill.innerHTML = `$${totalPrice * totalquantity}`
+    
+  }
 }
