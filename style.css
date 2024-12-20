@@ -15,7 +15,7 @@ width: 0;
 .cart-page{
     transition: 0.5s ease;
     background-color: #eeeee6;
-    /* transform: translateX(100%); */
+    transform: translateX(100%);
 }
 .close-btn:hover{
     cursor: pointer;
