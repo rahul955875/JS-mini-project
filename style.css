@@ -29,4 +29,7 @@ width: 0;
     .cartFixed{
         right: -12% !important;
     }
+    .cart-page-count {
+        width: 100%;
+    }
 }

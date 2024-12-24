@@ -122,7 +122,7 @@ function cartPage() {
     const { id, title, price, image, quantity } = x;
     cartPageBodyHtml.innerHTML += `
         <div
-          class="col cart-item d-flex gap-4 border align-items-center p-4 shadow product-inCart" data-id=${id}
+          class="col cart-item d-flex flex-column flex-lg-row gap-4 border align-items-center p-4 shadow product-inCart" data-id=${id}
         >
         <div class="cart-item-img col-4" style="width: 260px">
             <img
