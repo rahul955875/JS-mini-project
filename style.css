@@ -6,6 +6,9 @@
 a{
     text-decoration: none;
 }
+.cartFixed{
+    z-index: 3;
+}
 .cart-page-count{
     width: 40%;
 }
@@ -20,4 +23,10 @@ width: 0;
 .close-btn:hover{
     cursor: pointer;
     color: red;
+}
+
+@media (max-width:576px) {
+    .cartFixed{
+        right: -12% !important;
+    }
 }

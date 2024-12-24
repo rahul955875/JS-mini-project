@@ -8,7 +8,7 @@ fetch("https://dummyjson.com/products")
     fetchDataObj.forEach((e) => {
       const { id, title, description, images, rating, price } = e;
       productHtml.innerHTML += `
-        <div class="card col" id=poduct-id-${id} style="width: 18rem">
+        <div class="card col shadow " id=poduct-id-${id} style="width: 18rem">
             <img
             src= ${images[0]} 
               class="card-img-top"
@@ -206,13 +206,15 @@ function cartPageDecrement() {
   });
 }
 
-function totalBill(){
-  const totalBill = document.querySelector('.total-bill')
-  if(productsCart.length >0){
-    const totalPrice=  productsCart.map((x)=>x.price).reduce((a,c)=>+a+ +c,0)
-    const totalquantity=  productsCart.map((x)=>x.quantity).reduce((a,c)=>+a+ +c,0)
+function totalBill() {
+  const totalBillElement = document.querySelector('.total-bill');
+  if (productsCart.length > 0) {
+    const totalAmount = productsCart
+      .map((x) => x.price * x.quantity)
+      .reduce((a, c) => a + c, 0); 
 
-    totalBill.innerHTML = `$${totalPrice * totalquantity}`
-    
+    totalBillElement.innerHTML = `$${totalAmount.toFixed(2)}`;
+  } else {
+    totalBillElement.innerHTML = '$0.00';
   }
 }
